@@ -20,6 +20,14 @@ jobs:
         run: npm ci
 
       - name: Build Next.js
+      
+      - name: Inspect build output
+        run: |
+          ls -la .next || true
+          du -sh .next || true
+          find .next -maxdepth 2 -type f | head -n 50
+
+      
         run: npm run build
 
       - name: Deploy to Azure Static Web Apps
@@ -33,6 +41,7 @@ jobs:
           api_location: ""           # APIなし
           output_location: ".next"   # Next.js のビルド成果物
           skip_app_build: true       # ← Oryx の自動ビルドを無効化（重要）
+
 
 
 
