@@ -31,8 +31,11 @@ jobs:
           app_location: "/"       # リポジトリ直下
           api_location: ""        # APIなし
         　output_location: "out"  # Next.js の静的出力（build時に生成）
-          app_artifact_location: "out"　 # ← これも必ず指定（skip_app_build:true のとき参照される）
-          skip_app_build: true
+      
+      　　#app_artifact_location: "out"
+      　　skip_app_build: true
+      
           is_static_export: true      # （任意）静的エクスポートであることを明示
+
 
 
