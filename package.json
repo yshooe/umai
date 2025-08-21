@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -25,6 +25,7 @@
     "@eslint/eslintrc": "^3"
   },
   "engines": {
-    "node": ">=20"
+    "node": "20.x",
+    "npm": "10.x"
   }
 }
