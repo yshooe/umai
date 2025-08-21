@@ -11,16 +11,24 @@ jobs:
   build_and_deploy:
     if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
-          action: upload  # ★ 必須
+          action: upload                                 # ★ 必須
+          # どちらのキー名でも渡す（環境により片方だけ見られるケース対策）
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}         # PR コメント等に利用（任意だが推奨）
-          app_location: "/"                               # リポジトリアプリのルート
-          output_location: ".next"                        # Next.js（SSR/ISR）は .next を指定
-          api_location: ""                                # Functions 使うなら "api"
-          # is_static_export, skip_app_build などは書かない
+          deployment_token:               ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+
+          repo_token: ${{ secrets.GITHUB_TOKEN }}        # PR コメントなどに使用（推奨）
+          app_location: "/"                              # リポジトリのアプリルート
+          output_location: ".next"                       # Next.js SSR/ISR は .next
+          api_location: ""                               # Functions 使うなら "api"
+          skip_deploy_on_missing_secrets: true           # ★ これでPRでも失敗しない
+          # is_static_export/skip_app_build は 指定しない（SSRのため）
