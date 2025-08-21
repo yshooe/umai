@@ -1,4 +1,4 @@
-﻿// app/race/RaceSelector.tsx
+// app/race/RaceSelector.tsx
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
