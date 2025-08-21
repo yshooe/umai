@@ -17,7 +17,7 @@ jobs:
           node-version: 20
 
       - name: Install deps
-        run: npm ci --omit=dev
+        run: npm ci
 
       - name: Build (static export)
         run: npm run build
@@ -32,3 +32,4 @@ jobs:
           api_location: ""        # APIなし
           output_location: "out"  # ← ここが .next ではなく out（重要）
           skip_app_build: true    # Oryxの再ビルドを止める
+
