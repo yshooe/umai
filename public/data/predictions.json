@@ -1,6 +1,6 @@
 ﻿{
   "2025-TEST-01": [
-    { "horse_id": "201234", "horse_name": "サンプルホース1A", "draw": 3,
+    { "horse_id": "201234", "horse_name": "サンプルホース100A", "draw": 3,
       "win_prob": 0.28, "place_prob": 0.52, "score": 0.73,
       "links": { "race": "https://race.netkeiba.com/?race_id=2025-TEST-01", "horse": "https://db.netkeiba.com/horse/201234/" }
     },
