@@ -1,4 +1,4 @@
-// app/page.tsx
+// src/app/page.tsx
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
@@ -9,7 +9,7 @@ import { RaceSelector } from "./race/RaceSelector";
 type Attachment = {
   type: "pdf" | "image" | "link";
   label: string;
-  src: string;
+  src: string;       // 例: /pdfs/xxxx.pdf
   filename?: string;
 };
 
@@ -41,6 +41,7 @@ function PdfViewer({ src, label }: { src: string; label?: string }) {
 }
 
 export default async function Page({
+  // Next.js 15: Promise<Record<string, string | string[] | undefined>> を await
   searchParams,
 }: {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -48,27 +49,27 @@ export default async function Page({
   const sp = (await searchParams) ?? {};
   const raceId = typeof sp.raceId === "string" ? sp.raceId : undefined;
 
-  // 本番の絶対URLを構築
+  // 本番の絶対URLを作る（相対fetchで落ちる環境を避ける）
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host");
   const proto = h.get("x-forwarded-proto") ?? "https";
   const baseUrl = `${proto}://${host}`;
 
-  // /data/predictions.json を優先、ダメなら /predictions.json を試す
+  // /data/predictions.json を優先、無ければ /predictions.json
   const urls = [`${baseUrl}/data/predictions.json`, `${baseUrl}/predictions.json`];
+
   let races: Race[] = [];
   for (const url of urls) {
     try {
       const res = await fetch(url, { cache: "no-store" });
-      if (res.ok) {
-        const data = (await res.json()) as Predictions;
-        if (Array.isArray((data as any).races)) {
-          races = data.races;
-        }
-        if (races.length) break;
+      if (!res.ok) continue;
+      const data = (await res.json()) as Predictions;
+      if (Array.isArray(data?.races)) {
+        races = data.races;
+        break;
       }
     } catch {
-      // ignore and try next
+      // 次の候補へ
     }
   }
 
@@ -90,11 +91,40 @@ export default async function Page({
           {/* レース切替 */}
           <div className="mb-6">
             <label className="mr-2 text-sm">レース選択：</label>
-            <RaceSelector races={races.map(({ id, title }) => ({ id, title }))} currentId={selected?.id} />
+            <RaceSelector
+              races={races.map(({ id, title }) => ({ id, title }))}
+              currentId={selected?.id}
+            />
           </div>
 
           {selected ? (
             <>
               <section className="mb-6">
                 <h2 className="text-xl font-semibold">{selected.title}</h2>
-                <div className
+                <div className="text-sm text-gray-600">
+                  {selected.datetime ? <span className="mr-3">時刻: {selected.datetime}</span> : null}
+                  {selected.track ? <span className="mr-3">開催: {selected.track}</span> : null}
+                  {selected.distance ? <span>距離: {selected.distance}</span> : null}
+                </div>
+              </section>
+
+              {selected.attachments?.filter((a) => a.type === "pdf").length ? (
+                <section className="space-y-8">
+                  {selected.attachments!
+                    .filter((a) => a.type === "pdf")
+                    .map((a, i) => (
+                      <PdfViewer key={`${selected.id}-pdf-${i}`} src={a.src} label={a.label} />
+                    ))}
+                </section>
+              ) : (
+                <p>このレースにPDF添付はありません。</p>
+              )}
+            </>
+          ) : (
+            <p>表示できるレースがありません。</p>
+          )}
+        </>
+      )}
+    </main>
+  );
+}
