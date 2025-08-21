@@ -28,14 +28,10 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SEA_0BADEAE10 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
-          app_location: "/"       # リポジトリ直下
-          api_location: ""        # APIなし
-        　output_location: "out"  # Next.js の静的出力（build時に生成）
-      
-      　　#app_artifact_location: "out"
-      　　skip_app_build: true
-      
-          is_static_export: true      # （任意）静的エクスポートであることを明示
-
-
-
+          app_location: /
+          api_location: ""
+          output_location: out
+          app_artifact_location: out
+          skip_app_build: true
+          is_static_export: true
+          
