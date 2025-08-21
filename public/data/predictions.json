@@ -1,29 +1,47 @@
 {
-  "id": "2025-08-21-kawasaki-11R",
-  "title": "疾風怒涛賞（川崎11R）",
-  "datetime": "2025-08-21T20:15:00+09:00",
-  "track": "川崎",
-  "distance": "ダ900m",
-  "attachments": [
+  "races": [
     {
-      "type": "pdf",
-      "label": "出馬表（netkeiba）",
-      "src": "/pdfs/20250821_kawasaki11R_shippu-dotou.pdf",
-      "filename": "20250821_川崎11R疾風怒涛賞_netkeiba競馬新聞_ヨコ.pdf"
+      "id": "2025-08-21-kawasaki-11R",
+      "title": "疾風怒涛賞（川崎11R）",
+      "datetime": "2025-08-21T20:15:00+09:00",
+      "track": "川崎",
+      "distance": "ダ900m",
+      "attachments": [
+        {
+          "type": "pdf",
+          "label": "出馬表（netkeiba）",
+          "src": "/pdfs/20250821_kawasaki11R_shippu-dotou.pdf",
+          "filename": "20250821_川崎11R疾風怒涛賞_netkeiba競馬新聞_ヨコ.pdf"
+        }
+      ]
     }
-  ]
-}
-
-
-{
-  "2025-TEST-01": [
-    { "horse_id": "201234", "horse_name": "サンプルホース100A", "draw": 3,
-      "win_prob": 0.28, "place_prob": 0.52, "score": 0.73,
-      "links": { "race": "https://race.netkeiba.com/?race_id=2025-TEST-01", "horse": "https://db.netkeiba.com/horse/201234/" }
-    },
-    { "horse_id": "201235", "horse_name": "サンプルホース2B", "draw": 6,
-      "win_prob": 0.21, "place_prob": 0.44, "score": 0.60,
-      "links": { "race": "https://race.netkeiba.com/?race_id=2025-TEST-01", "horse": "https://db.netkeiba.com/horse/201235/" }
-    }
-  ]
+  ],
+  "predictions": {
+    "2025-TEST-01": [
+      {
+        "horse_id": "201234",
+        "horse_name": "サンプルホース100A",
+        "draw": 3,
+        "win_prob": 0.28,
+        "place_prob": 0.52,
+        "score": 0.73,
+        "links": {
+          "race": "https://race.netkeiba.com/?race_id=2025-TEST-01",
+          "horse": "https://db.netkeiba.com/horse/201234/"
+        }
+      },
+      {
+        "horse_id": "201235",
+        "horse_name": "サンプルホース2B",
+        "draw": 6,
+        "win_prob": 0.21,
+        "place_prob": 0.44,
+        "score": 0.60,
+        "links": {
+          "race": "https://race.netkeiba.com/?race_id=2025-TEST-01",
+          "horse": "https://db.netkeiba.com/horse/201235/"
+        }
+      }
+    ]
+  }
 }
